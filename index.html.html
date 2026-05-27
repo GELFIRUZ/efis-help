@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сопровождение в ГИС | Землепользователям</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--i9:#1e1b4b;--i8:#312e81;--i7:#3730a3;--i6:#4338ca;--i5:#6366f1;--i2:#c7d2fe;--i0:#eef2ff;--g5:#6b7280;--g6:#4b5563;--g9:#1f2937}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#f1f5f9;color:var(--g9);line-height:1.6}
+.container{max-width:1120px;margin:0 auto;padding:0 24px}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(30,27,75,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06);padding:14px 0}
+nav .container{display:flex;justify-content:space-between;align-items:center}
+.logo{color:#fff;font-weight:700;font-size:1.05rem}
+.logo span{color:var(--i2)}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{color:rgba(255,255,255,.7);text-decoration:none;font-size:.85rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:#fff}
+.hero{background:linear-gradient(160deg,var(--i9),var(--i8),var(--i7));color:#fff;padding:100px 0 60px;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;top:-30%;right:-20%;width:600px;height:600px;background:radial-gradient(circle,rgba(99,102,241,.2),transparent 70%)}
+.hero .container{position:relative;z-index:1}
+.hero h1{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;letter-spacing:-.025em;margin-bottom:16px;max-width:800px}
+.hero p{font-size:1.05rem;color:rgba(255,255,255,.7);margin-bottom:28px;max-width:600px}
+.hero-tags{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+.hero-tags span{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);padding:6px 18px;border-radius:100px;font-size:.82rem;color:var(--i2)}
+.hero-btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--i9);padding:14px 32px;border-radius:12px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .25s;box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.hero-btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(0,0,0,.25)}
+@media(max-width:768px){.hero h1{max-width:none}.hero p{max-width:none}}
+.section{padding:50px 0}
+.section-header{margin-bottom:32px;text-align:center}
+.section-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600;color:var(--i5);margin-bottom:8px}
+.section-title{font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:800;color:var(--i9);letter-spacing:-.02em}
+.section-desc{color:var(--g5);font-size:.9rem;margin:6px auto 0;max-width:600px}
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.service-card{background:#fff;border-radius:14px;padding:20px;border:1px solid #e5e7eb;display:flex;gap:14px;transition:all .25s}
+.service-card:hover{border-color:var(--i2);box-shadow:0 6px 20px rgba(99,102,241,.08);transform:translateY(-2px)}
+.service-icon{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,var(--i5),var(--i6));display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0}
+.service-text h3{font-size:.9rem;font-weight:600;color:var(--i9);margin-bottom:3px}
+.service-text p{font-size:.82rem;color:var(--g5)}
+.adv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.adv-card{background:#fff;border-radius:14px;padding:24px 20px;border:1px solid #e5e7eb;text-align:center;transition:all .25s}
+.adv-card:hover{border-color:var(--i2);box-shadow:0 6px 20px rgba(99,102,241,.08)}
+.adv-icon{width:44px;height:44px;border-radius:50%;background:var(--i0);color:var(--i6);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;font-size:1.1rem;font-weight:700}
+.adv-card h3{font-size:.9rem;font-weight:600;color:var(--i9);margin-bottom:5px}
+.adv-card p{font-size:.8rem;color:var(--g5);line-height:1.5}
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.pricing-card{background:#fff;border-radius:18px;padding:30px 28px;border:1px solid #e5e7eb;position:relative;transition:all .25s}
+.pricing-card:hover{border-color:var(--i2);box-shadow:0 10px 28px rgba(99,102,241,.1);transform:translateY(-4px)}
+.pricing-card.featured{border-color:var(--i5);background:linear-gradient(180deg,#fff,var(--i0))}
+.pricing-card.featured::before{content:'Рекомендуем';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--i5);color:#fff;padding:4px 16px;border-radius:100px;font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.pricing-name{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#9ca3af;font-weight:600;margin-bottom:4px}
+.pricing-amount{font-size:clamp(1.4rem,2.5vw,1.8rem);font-weight:800;color:var(--i9);margin-bottom:6px}
+.pricing-desc{font-size:.82rem;color:var(--g5);margin-bottom:18px;line-height:1.5}
+.pricing-features{list-style:none;margin-bottom:20px}
+.pricing-features li{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--g6);padding:5px 0;border-bottom:1px solid #f3f4f6}
+.pricing-features li:last-child{border-bottom:none}
+.pricing-features li::before{content:'✓';color:var(--i5);font-weight:700;font-size:.85rem}
+.pricing-btn{display:block;text-align:center;padding:12px;border-radius:10px;font-weight:600;font-size:.85rem;text-decoration:none;transition:all .2s;border:1px solid var(--i2);color:var(--i6)}
+.pricing-btn:hover{background:var(--i5);color:#fff;border-color:var(--i5)}
+.pricing-card.featured .pricing-btn{background:var(--i5);color:#fff;border-color:var(--i5)}
+.pricing-card.featured .pricing-btn:hover{background:var(--i6)}
+.contact-section{background:var(--i9);border-radius:18px;padding:50px 40px;text-align:center;color:#fff;position:relative;overflow:hidden}
+.contact-section::before{content:'';position:absolute;top:-50%;right:-30%;width:400px;height:400px;background:radial-gradient(circle,rgba(99,102,241,.15),transparent 70%)}
+.contact-section h2{font-size:clamp(1.1rem,2.2vw,1.5rem);font-weight:700;margin-bottom:10px}
+.contact-section p{color:rgba(255,255,255,.7);margin-bottom:24px;font-size:.9rem}
+.contact-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.contact-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 24px;border-radius:10px;font-weight:600;font-size:.9rem;text-decoration:none;transition:all .25s}
+.contact-btn.primary{background:#fff;color:var(--i9)}
+.contact-btn.primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.2)}
+.contact-btn.secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15)}
+.contact-btn.secondary:hover{background:rgba(255,255,255,.2);transform:translateY(-2px)}
+footer{text-align:center;padding:28px 0;color:#9ca3af;font-size:.8rem}
+footer a{color:var(--i5);text-decoration:none}
+footer a:hover{text-decoration:underline}
+@media(max-width:768px){.nav-links{display:none}.section{padding:36px 0}.contact-section{padding:36px 20px;border-radius:0;margin:0 -24px}}
+</style>
+</head>
+<body>
+<nav>
+<div class="container">
+<div class="logo">🌿 <span>ГИС</span>Сопровождение</div>
+<ul class="nav-links">
+<li><a href="#services">Услуги</a></li>
+<li><a href="#advantages">Преимущества</a></li>
+<li><a href="#pricing">Цены</a></li>
+<li><a href="#contact">Контакты</a></li>
+</ul>
+</div>
+</nav>
+
+<section class="hero" id="home">
+<div class="container">
+<h1>Сопровождение в государственных информационных системах для землепользователей</h1>
+<p>Полный цикл работ в ЕФГИС ЗСН, ФГИС «Семеноводство», ФГИС «Сатурн» и ФГИС «Зерно» — от внесения данных до подготовки к проверкам.</p>
+<div class="hero-tags">
+<span>ЕФГИС ЗСН</span><span>ФГИС «Семеноводство»</span><span>ФГИС «Сатурн»</span><span>ФГИС «Зерно»</span>
+</div>
+<a href="#contact" class="hero-btn">Связаться с нами →</a>
+</div>
+</section>
+
+<section class="section" id="services">
+<div class="container">
+<div class="section-header">
+<div class="section-label">Услуги</div>
+<h2 class="section-title">Что мы делаем</h2>
+<p class="section-desc">Полный комплекс работ по сопровождению вашего хозяйства в государственных информационных системах</p>
+</div>
+<div class="services-grid">
+<div class="service-card">
+<div class="service-icon">🌾</div>
+<div class="service-text"><h3>Добавление и корректировка полей</h3><p>Внесение новых участков, изменение границ и характеристик существующих полей в системах</p></div>
+</div>
+<div class="service-card">
+<div class="service-icon">🔄</div>
+<div class="service-text"><h3>Формирование севооборотов</h3><p>Создание и актуализация севооборотов с учётом особенностей вашего хозяйства</p></div>
+</div>
+<div class="service-card">
+<div class="service-icon">💧</div>
+<div class="service-text"><h3>Заявки на договоры с мелиорацией</h3><p>Подготовка и подача заявок на заключение договоров мелиоративного характера</p></div>
+</div>
+<div class="service-card">
+<div class="service-icon">📑</div>
+<div class="service-text"><h3>Ведение паспортов полей</h3><p>Формирование и регулярное обновление паспортов полей в соответствии с требованиями</p></div>
+</div>
+<div class="service-card">
+<div class="service-icon">✅</div>
+<div class="service-text"><h3>Проверка корректности данных</h3><p>Аудит внесённой информации, выявление несоответствий и приведение данных к актуальному состоянию</p></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="advantages" style="background:#fff">
+<div class="container">
+<div class="section-header">
+<div class="section-label">Преимущества</div>
+<h2 class="section-title">Почему выбирают нас</h2>
+<p class="section-desc">Индивидуальный подход и профессиональная экспертиза для каждого хозяйства</p>
+</div>
+<div class="adv-grid">
+<div class="adv-card">
+<div class="adv-icon">1</div>
+<h3>Индивидуальный подход</h3>
+<p>Учитываем особенности именно вашего хозяйства, а не работаем по шаблону</p>
+</div>
+<div class="adv-card">
+<div class="adv-icon">2</div>
+<h3>Профессиональная экспертиза</h3>
+<p>Опыт работы с геоинформационными системами и агрономией</p>
+</div>
+<div class="adv-card">
+<div class="adv-icon">3</div>
+<h3>Полное сопровождение</h3>
+<p>Берём на себя контроль аккаунтов и всех операций в системах</p>
+</div>
+<div class="adv-card">
+<div class="adv-icon">4</div>
+<h3>Прозрачность работы</h3>
+<p>Регулярная отчётность и полная ясность на каждом этапе сопровождения</p>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="pricing">
+<div class="container">
+<div class="section-header">
+<div class="section-label">Стоимость</div>
+<h2 class="section-title">Тарифы и цены</h2>
+<p class="section-desc">Гибкая система ценообразования под задачи вашего хозяйства</p>
+</div>
+<div class="pricing-grid">
+<div class="pricing-card">
+<div class="pricing-name">Базовый</div>
+<div class="pricing-amount">Договорная</div>
+<div class="pricing-desc">Частичное сопровождение — только нужные вам услуги</div>
+<ul class="pricing-features">
+<li>Разовая корректировка полей</li>
+<li>Проверка текущих данных</li>
+<li>Консультация по системам</li>
+</ul>
+<a href="#contact" class="pricing-btn">Узнать стоимость</a>
+</div>
+<div class="pricing-card featured">
+<div class="pricing-name">Полный</div>
+<div class="pricing-amount">Договорная</div>
+<div class="pricing-desc">Оптимальный выбор для большинства хозяйств</div>
+<ul class="pricing-features">
+<li>Ведение всех систем под ключ</li>
+<li>Полный цикл работ с полями</li>
+<li>Личный менеджер 24/7</li>
+</ul>
+<a href="#contact" class="pricing-btn">Узнать стоимость</a>
+</div>
+</div>
+</div>
+</section>
+
+<section class="section" id="contact">
+<div class="container">
+<div class="contact-section">
+<h2>Свяжитесь с нами</h2>
+<p>Подберём оптимальный формат сопровождения для вашего хозяйства. Ответим на все вопросы.</p>
+<div class="contact-btns">
+<a href="tel:+79053251888" class="contact-btn primary">📞 8 (905) 325-18-88</a>
+<a href="mailto:89053251888@mail.ru" class="contact-btn secondary">✉️ 89053251888@mail.ru</a>
+</div>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="container">
+<p>© 2025 — Сопровождение в ГИС для землепользователей &nbsp;·&nbsp; <a href="tel:+79053251888">8 (905) 325-18-88</a> &nbsp;·&nbsp; <a href="mailto:89053251888@mail.ru">89053251888@mail.ru</a></p>
+</div>
+</footer>
+</body>
+</html>
